@@ -41,8 +41,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
+    <Compile Include="Cls_Empleados.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Validar_usuario.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Capa_AccesoDatos\Capa_AccesoDatos.csproj">
