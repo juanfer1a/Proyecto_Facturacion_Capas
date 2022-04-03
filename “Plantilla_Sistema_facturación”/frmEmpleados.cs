@@ -1,12 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using Capa_LogicaDeNegocios;
 
 namespace _Plantilla_Sistema_facturación_
 {
@@ -24,7 +19,8 @@ namespace _Plantilla_Sistema_facturación_
         }
 
         DataTable dt = new DataTable(); // CREAMOS EL OBJETO DE TIPO DATATABLE PARA ALMACENAR LO CONSULTADO
-        Acceso_datos Acceso = new Acceso_datos(); // creamos un objeto con la clase Acceso_datos
+        Cls_Empleados empleado = new Cls_Empleados();
+
         public void Llenar_Categoria()
         {
             if (IdEmpleado == 0)
@@ -32,11 +28,13 @@ namespace _Plantilla_Sistema_facturación_
                 lblAdminEmpleados.Text = "INGRESO NUEVO PRODUCTO";
             }
             else
-            {//Actulizar cliente
-             //ACTUALIZAR EL REGISTRO CON EL ID PASADO
-                string sentencia = $"select * from TBLEMPLEADO where IdEmpleado = { IdEmpleado}"; // CONSULTO REGISTRO DEL iDcLIENTE
+            {
+                //ACTUALIZAR EL REGISTRO CON EL ID PASADO
+                lblAdminEmpleados.Text = "MODIFICAR PRODUCTO";
+                empleado.C_IdEmpleado = IdEmpleado;
+                dt = empleado.Consulta_Empleado();
+              
 
-                dt = Acceso.EjecutarComandoDatos(sentencia);
                 foreach (DataRow row in dt.Rows)
                 {
                     // LLENAMOS LOS CAMPOS CON EL REGISTRO CONSULTADO
@@ -56,27 +54,36 @@ namespace _Plantilla_Sistema_facturación_
 
         // *************************************** ACTUALIZACIONES ********* ********************
         // ------- funciones que permiten el ingreso , retiro y actualización de la información de Clientes en la base de datos
-        public bool Guardar()
+        public void Guardar()
         {
-            Boolean actualizado = false;
+            string mensaje = string.Empty;
             if (validar())
             {                
                 try
                 {
-                    Acceso_datos Acceso = new Acceso_datos();
-                    string sentencia = $"Exec actualizar_Empleado {IdEmpleado},'{txtNombreEmpleado.Text}','{txtDocumentoEmpleado.Text}'," +
-                        $"'{txtDireccionEmpleado.Text}','{txtTelefonoEmpleado.Text}','{txtEmailEmpleado.Text}','{cboRolEmpleado.SelectedValue}','{dtpFechaIngreso.Text}'," +
-                        $"'{dtpFechaRetiro.Text}','{txtDatosAdicionales.Text}','{DateTime.Now.ToShortDateString()}','Juan'";
-                    MessageBox.Show(Acceso.EjecutarComando(sentencia));
-                    actualizado = true;
+                    empleado.C_IdEmpleado = IdEmpleado;
+                    empleado.C_strNombre = txtNombreEmpleado.Text;
+                    empleado.C_NumDocumento = double.Parse(txtDocumentoEmpleado.Text);
+                    empleado.C_StrDireccion = txtDireccionEmpleado.Text;
+                    empleado.C_StrTelefono = txtTelefonoEmpleado.Text;
+                    empleado.C_StrEmail = txtEmailEmpleado.Text;
+                    empleado.C_IdRolEmpleado = int.Parse(cboRolEmpleado.SelectedValue.ToString());
+                    empleado.C_DtmIngreso = dtpFechaIngreso.Text;
+                    empleado.C_DtmRetiro = dtpFechaRetiro.Text;
+                    empleado.C_strDatosAdicionales = txtDatosAdicionales.Text;
+                    empleado.C_DtmFechaModifica = DateTime.Now.ToShortDateString();
+                    empleado.C_StrUsuarioModifico = "Juan";
+                    mensaje = empleado.Actulizar_Empleado();
+                    MessageBox.Show(mensaje);
+
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show("falló inserción: " + ex);
-                    actualizado = false;
+                    
                 }
             }
-            return actualizado;
+            
         }
 
         //FUNCIÓN QE PERMITE VALIDAR LOS CAMPOS DEL FORMULARIO
@@ -155,15 +162,11 @@ namespace _Plantilla_Sistema_facturación_
         }
 
         public void Cargar_ComboRol()
-        {
-            //DataTable dt = new DataTable();
-           // Acceso_datos Acceso = new Acceso_datos(); // creamos un objeto con la clase Acceso_datos
-            dt = Acceso.cargartabla("TBLROLES", "");
+        {            
+            dt = empleado.Consulta_Rol();
             cboRolEmpleado.DataSource = dt;
             cboRolEmpleado.DisplayMember = "StrDescripcion";
-            cboRolEmpleado.ValueMember = "IdRolEmpleado";
-
-            Acceso.CerrarBd();
+            cboRolEmpleado.ValueMember = "IdRolEmpleado";            
         }
 
 
@@ -174,7 +177,13 @@ namespace _Plantilla_Sistema_facturación_
 
         private void btnSalirEmpleado_Click(object sender, EventArgs e)
         {
-            this.Close();
+            DialogResult Rta;
+            Rta = MessageBox.Show("Desea salir de la edicion?", "MENSAJE DE ADVERTENCIA", MessageBoxButtons.OKCancel,
+                MessageBoxIcon.Warning);
+            if (Rta == DialogResult.OK)
+            {
+                this.Close(); 
+            }
         }
 
     }

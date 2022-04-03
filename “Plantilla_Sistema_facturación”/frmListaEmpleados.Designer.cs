@@ -178,7 +178,7 @@ namespace _Plantilla_Sistema_facturación_
             this.btnEmpleadoNuevo.TabIndex = 19;
             this.btnEmpleadoNuevo.Text = "NUEVO";
             this.btnEmpleadoNuevo.UseVisualStyleBackColor = true;
-            this.btnEmpleadoNuevo.Click += new System.EventHandler(this.btnClienteNuevo_Click);
+            this.btnEmpleadoNuevo.Click += new System.EventHandler(this.btnEmpleadoNuevo_Click);
             // 
             // btnBuscarEmpleado
             // 

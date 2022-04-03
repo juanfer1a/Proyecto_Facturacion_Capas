@@ -12,9 +12,9 @@ using MaterialSkin.Controls;
 
 namespace _Plantilla_Sistema_facturación_
 {
-    public partial class frmEditarClientes : Form
+    public partial class frmClientes : Form
     {
-        public frmEditarClientes()
+        public frmClientes()
         {
             InitializeComponent();
         }

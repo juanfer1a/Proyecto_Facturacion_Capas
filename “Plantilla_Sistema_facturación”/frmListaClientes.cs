@@ -51,7 +51,7 @@ namespace _Plantilla_Sistema_facturación_
 
         private void btnNuevo_Click(object sender, EventArgs e)
         {
-            frmEditarClientes Cliente = new frmEditarClientes();
+            frmClientes Cliente = new frmClientes();
             Cliente.idCliente = 0;
             Cliente.NombreBtnActualizar("Crear");
             Cliente.ShowDialog();
@@ -77,7 +77,7 @@ namespace _Plantilla_Sistema_facturación_
             if (dgClientes.Columns[e.ColumnIndex].Name == "btnEditarCliente")//Obtenemos el nombre de la columna para comparar
             {
                 int posActual = dgClientes.CurrentRow.Index;//Obtenemos el numero de la fila
-                frmEditarClientes Cliente = new frmEditarClientes();
+                frmClientes Cliente = new frmClientes();
                 Cliente.idCliente = int.Parse(dgClientes[0, posActual].Value.ToString());//pasamos al formulario el id del cliente seleccionado
                 Cliente.ShowDialog();//muestra el formulario de forma modal
                 dgClientes.Rows.Clear();

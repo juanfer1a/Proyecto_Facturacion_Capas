@@ -1,7 +1,7 @@
 ﻿
 namespace _Plantilla_Sistema_facturación_
 {
-    partial class frmEditarClientes
+    partial class frmClientes
     {
         /// <summary>
         /// Required designer variable.

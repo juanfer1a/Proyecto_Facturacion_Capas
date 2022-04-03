@@ -16,7 +16,7 @@ namespace _Plantilla_Sistema_facturación_
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new frmlogin());
+            Application.Run(new frmPrincipal());
         }
     }
 }
