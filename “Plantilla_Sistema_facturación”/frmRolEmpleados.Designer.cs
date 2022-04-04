@@ -34,7 +34,7 @@ namespace _Plantilla_Sistema_facturación_
             this.txbDescripcionRol = new System.Windows.Forms.TextBox();
             this.lblDescripcionRol = new MaterialSkin.Controls.MaterialLabel();
             this.txbIdRolEmpleado = new System.Windows.Forms.TextBox();
-            this.txtNombreRol = new MaterialSkin.Controls.MaterialSingleLineTextField();
+            this.txtRol = new MaterialSkin.Controls.MaterialSingleLineTextField();
             this.lblSalirRol = new MaterialSkin.Controls.MaterialRaisedButton();
             this.btnActualizarRol = new MaterialSkin.Controls.MaterialRaisedButton();
             this.lblRolEmpleados = new MaterialSkin.Controls.MaterialLabel();
@@ -48,7 +48,7 @@ namespace _Plantilla_Sistema_facturación_
             this.grbRolEmpleados.Controls.Add(this.txbDescripcionRol);
             this.grbRolEmpleados.Controls.Add(this.lblDescripcionRol);
             this.grbRolEmpleados.Controls.Add(this.txbIdRolEmpleado);
-            this.grbRolEmpleados.Controls.Add(this.txtNombreRol);
+            this.grbRolEmpleados.Controls.Add(this.txtRol);
             this.grbRolEmpleados.Location = new System.Drawing.Point(39, 79);
             this.grbRolEmpleados.Name = "grbRolEmpleados";
             this.grbRolEmpleados.Size = new System.Drawing.Size(519, 306);
@@ -83,22 +83,22 @@ namespace _Plantilla_Sistema_facturación_
             this.txbIdRolEmpleado.Size = new System.Drawing.Size(36, 20);
             this.txbIdRolEmpleado.TabIndex = 19;
             // 
-            // txtNombreRol
+            // txtRol
             // 
-            this.txtNombreRol.Depth = 0;
-            this.txtNombreRol.Hint = "Nombre Rol";
-            this.txtNombreRol.Location = new System.Drawing.Point(56, 81);
-            this.txtNombreRol.MaxLength = 32767;
-            this.txtNombreRol.MouseState = MaterialSkin.MouseState.HOVER;
-            this.txtNombreRol.Name = "txtNombreRol";
-            this.txtNombreRol.PasswordChar = '\0';
-            this.txtNombreRol.SelectedText = "";
-            this.txtNombreRol.SelectionLength = 0;
-            this.txtNombreRol.SelectionStart = 0;
-            this.txtNombreRol.Size = new System.Drawing.Size(420, 23);
-            this.txtNombreRol.TabIndex = 18;
-            this.txtNombreRol.TabStop = false;
-            this.txtNombreRol.UseSystemPasswordChar = false;
+            this.txtRol.Depth = 0;
+            this.txtRol.Hint = "Rol";
+            this.txtRol.Location = new System.Drawing.Point(56, 81);
+            this.txtRol.MaxLength = 32767;
+            this.txtRol.MouseState = MaterialSkin.MouseState.HOVER;
+            this.txtRol.Name = "txtRol";
+            this.txtRol.PasswordChar = '\0';
+            this.txtRol.SelectedText = "";
+            this.txtRol.SelectionLength = 0;
+            this.txtRol.SelectionStart = 0;
+            this.txtRol.Size = new System.Drawing.Size(300, 23);
+            this.txtRol.TabIndex = 18;
+            this.txtRol.TabStop = false;
+            this.txtRol.UseSystemPasswordChar = false;
             // 
             // lblSalirRol
             // 
@@ -176,7 +176,7 @@ namespace _Plantilla_Sistema_facturación_
 
         private System.Windows.Forms.GroupBox grbRolEmpleados;
         private System.Windows.Forms.TextBox txbIdRolEmpleado;
-        private MaterialSkin.Controls.MaterialSingleLineTextField txtNombreRol;
+        private MaterialSkin.Controls.MaterialSingleLineTextField txtRol;
         private MaterialSkin.Controls.MaterialLabel lblRolEmpleados;
         private MaterialSkin.Controls.MaterialRaisedButton lblSalirRol;
         private MaterialSkin.Controls.MaterialRaisedButton btnActualizarRol;

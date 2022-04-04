@@ -30,7 +30,7 @@ namespace _Plantilla_Sistema_facturación_
             else
             {
                 //ACTUALIZAR EL REGISTRO CON EL ID PASADO
-                lblAdminEmpleados.Text = "MODIFICAR PRODUCTO";
+                lblAdminEmpleados.Text = "MODIFICAR EMPLEADO";
                 empleado.C_IdEmpleado = IdEmpleado;
                 dt = empleado.Consulta_Empleado();
               

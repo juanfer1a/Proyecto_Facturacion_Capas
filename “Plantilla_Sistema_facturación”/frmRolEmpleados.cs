@@ -1,12 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using Capa_LogicaDeNegocios;
 
 namespace _Plantilla_Sistema_facturación_
 {
@@ -17,13 +12,14 @@ namespace _Plantilla_Sistema_facturación_
         {
             InitializeComponent();
         }
+
+        DataTable dt = new DataTable(); // CREAMOS EL OBJETO DE TIPO DATATABLE PARA ALMACENAR LO CONSULTADO
+        Cls_Roles rol = new Cls_Roles();
         private void frmRolEmpleados_Load(object sender, EventArgs e)
         {
-            
+            Llenar_FrmRol();
 
         }
-
-
 
         private void btnActualizarRol_Click(object sender, EventArgs e)
         {
@@ -32,38 +28,64 @@ namespace _Plantilla_Sistema_facturación_
 
         // *************************************** ACTUALIZACIONES ********* ********************
         // ------- funciones que permiten el ingreso , retiro y actualización de la información de Clientes en la base de datos
-        public bool Guardar()
+        public void Guardar()
         {
-            Boolean actualizado = false;
+            string mensaje = string.Empty;
             if (validar())
             {
                 try
                 {
-                    Acceso_datos Acceso = new Acceso_datos();
-                    string sentencia = $"Exec actualizar_Rol '{IdRol}','{txtNombreRol.Text}'";
-                    MessageBox.Show(Acceso.EjecutarComando(sentencia));
-                    actualizado = true;
+                    rol.C_StrDescripcion = txtRol.Text;
+                    rol.C_IdRol = IdRol;                    
+                    mensaje = rol.Actualizar_Rol();
+                    MessageBox.Show(mensaje);
+                    txtRol.Focus();
+                    txtRol.Clear();
+
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show("falló inserción: " + ex);
-                    actualizado = false;
+
                 }
             }
-            return actualizado;
+        }
+
+        public void Llenar_FrmRol()
+        {
+            if (IdRol == 0)
+            {//Registro nuevo
+                lblRolEmpleados.Text = "INGRESO NUEVO PRODUCTO";
+            }
+            else
+            {
+                //ACTUALIZAR EL REGISTRO CON EL ID PASADO
+                lblRolEmpleados.Text = "MODIFICAR PRODUCTO";
+                rol.C_IdRol = IdRol;
+                dt = rol.Consulta_Rol();
+
+
+                foreach (DataRow row in dt.Rows)
+                {
+                    // LLENAMOS LOS CAMPOS CON EL REGISTRO CONSULTADO
+
+                    txtRol.Text = row[1].ToString();
+                   
+                }
+            }
         }
         //FUNCIÓN QE PERMITE VALIDAR LOS CAMPOS DEL FORMULARIO
         private Boolean validar()
         {
             Boolean errorCampos = true;
 
-            if (txtNombreRol.Text == string.Empty)
+            if (txtRol.Text == string.Empty)
             {
-                MensajeError.SetError(txtNombreRol, "Debe ingresar el nombre del producto");
-                txtNombreRol.Focus();
+                MensajeError.SetError(txtRol, "Debe ingresar el nombre del producto");
+                txtRol.Focus();
                 errorCampos = false;
             }
-            else { MensajeError.SetError(txtNombreRol, string.Empty); }
+            else { MensajeError.SetError(txtRol, string.Empty); }
 
             
             return errorCampos;
@@ -74,8 +96,5 @@ namespace _Plantilla_Sistema_facturación_
         {
             this.Close();
         }
-
-
-
     }
 }

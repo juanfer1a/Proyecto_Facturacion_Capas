@@ -1,12 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using Capa_LogicaDeNegocios;
 
 namespace _Plantilla_Sistema_facturación_
 {
@@ -24,15 +19,15 @@ namespace _Plantilla_Sistema_facturación_
             llenar_grid();
         }
         DataTable dt = new DataTable(); // CREAMOS EL OBJETO DE TIPO DATATABLE PARA ALMACENAR LO CONSULTADO
-        Acceso_datos Acceso = new Acceso_datos(); // creamos un objeto con la clase Acceso_datos
+        Cls_Roles rol = new Cls_Roles();// creamos un objeto de la clase Cls seguridad de la capa logica de negocios
 
 
         public void llenar_grid()
         {
             //ACTUALIZAR EL REGISTRO CON EL ID PASADO
-            string sentencia = $"select IdRolEmpleado,StrDescripcion from TBLROLES"; // CONSULTO REGISTRO DEL iDcLIENTE
+            dgvRol.Rows.Clear();
+            dt = rol.Consulta_Rol();
 
-            dt = Acceso.EjecutarComandoDatos(sentencia);
             foreach (DataRow row in dt.Rows)
             {
                 // LLENAMOS LOS CAMPOS CON EL REGISTRO CONSULTADO
@@ -47,9 +42,8 @@ namespace _Plantilla_Sistema_facturación_
                 int posActual = dgvRol.CurrentRow.Index;//Obtenemos el numero de la fila
                 if (MessageBox.Show("Esta seguro de borrar", "CONFIRMACION", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                     MessageBox.Show($"BORRANDO indice{e.RowIndex} ID{dgvRol[0, posActual].Value.ToString()}");//Mostramos mensaje
-                int IdRol = Convert.ToInt32(dgvRol[0, posActual].Value.ToString());
-                string sentencia = $"EXEC Eliminar_Rol {IdRol}";
-                string mensaje = Acceso.EjecutarComando(sentencia);
+                rol.C_IdRol = Convert.ToInt32(dgvRol[0, posActual].Value.ToString());
+                MessageBox.Show(rol.Eliminar_Rol());
                 dgvRol.Rows.Clear();
                 llenar_grid();
 
@@ -66,15 +60,14 @@ namespace _Plantilla_Sistema_facturación_
 
         public void consultar()
         {
-            string sentencia = $"select * from TBLROLES where StrDescripcion ='{txtBuscarRol.Text}'"; // CONSULTO REGISTRO DEL iDcLIENTE
-
+           dt = rol.Filtrar_Rol(txtBuscarRol.Text); // CONSULTO REGISTRO
+            
 
             if (dt.Rows.Count > 0)
             {
-               dgvRol.Rows.Clear();
+                dgvRol.Rows.Clear();
                 txtBuscarRol.Clear();
-
-                dt = Acceso.EjecutarComandoDatos(sentencia);
+                               
                 foreach (DataRow row in dt.Rows)
                 {
                     // LLENAMOS LOS CAMPOS CON EL REGISTRO CONSULTADO
