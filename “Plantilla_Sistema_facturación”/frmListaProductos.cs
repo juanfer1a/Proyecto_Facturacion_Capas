@@ -23,7 +23,7 @@ namespace _Plantilla_Sistema_facturación_
         }
 
         DataTable dt = new DataTable(); // CREAMOS EL OBJETO DE TIPO DATATABLE PARA ALMACENAR LO CONSULTADO
-        Acceso_datos Acceso = new Acceso_datos(); // creamos un objeto con la clase Acceso_datos
+        //Acceso_datos Acceso = new Acceso_datos(); // creamos un objeto con la clase Acceso_datos
 
 
         public void Llenar_grid()
@@ -32,7 +32,7 @@ namespace _Plantilla_Sistema_facturación_
             string sentencia = $"select IdProducto,strNombre,Strcodigo,NumPrecioCompra,NumPrecioVenta,NumStock " +
                 $"from TBLPRODUCTO"; // CONSULTO REGISTRO DEL iDcLIENTE
 
-            dt = Acceso.EjecutarComandoDatos(sentencia);
+            //dt = Acceso.EjecutarComandoDatos(sentencia);
             foreach (DataRow row in dt.Rows)
             {
                 // LLENAMOS LOS CAMPOS CON EL REGISTRO CONSULTADO
@@ -57,7 +57,7 @@ namespace _Plantilla_Sistema_facturación_
                     MessageBox.Show($"BORRANDO indice{e.RowIndex} ID{dgvProductos[0, posActual].Value.ToString()}");//Mostramos mensaje
                 int IdProducto = Convert.ToInt32(dgvProductos[0, posActual].Value.ToString());
                 string sentencia = $"EXEC Eliminar_Producto {IdProducto}";
-                string mensaje = Acceso.EjecutarComando(sentencia);
+                //string mensaje = Acceso.EjecutarComando(sentencia);
                 dgvProductos.Rows.Clear();
                 Llenar_grid();
 
@@ -82,7 +82,7 @@ namespace _Plantilla_Sistema_facturación_
         {
             string sentencia = $"select IdProducto,strNombre,Strcodigo,NumPrecioCompra,NumPrecioVenta,NumStock from TBLPRODUCTO " +
                $"where StrNombre ='{txtBuscarProductos.Text}'"; // CONSULTO REGISTRO DEL PRODUCTO POR NOMBRE
-            dt = Acceso.EjecutarComandoDatos(sentencia);
+            //dt = Acceso.EjecutarComandoDatos(sentencia);
 
 
             if (dt.Rows.Count > 0)

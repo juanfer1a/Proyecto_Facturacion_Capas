@@ -1,14 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using MaterialSkin;
-using MaterialSkin.Controls;
+using Capa_LogicaDeNegocios;
+
 
 namespace _Plantilla_Sistema_facturación_
 {
@@ -25,7 +19,7 @@ namespace _Plantilla_Sistema_facturación_
         }
 
         DataTable dt = new DataTable(); // CREAMOS EL OBJETO DE TIPO DATATABLE PARA ALMACENAR LO CONSULTADO
-        Acceso_datos Acceso = new Acceso_datos(); // creamos un objeto con la clase Acceso_datos
+        //Acceso = new Acceso_datos(); // creamos un objeto con la clase Acceso_datos
 
 
 
@@ -46,7 +40,7 @@ namespace _Plantilla_Sistema_facturación_
              //ACTUALIZAR EL REGISTRO CON EL ID PASADO
                 string sentencia = $"select * from TBLCATEGORIA_PROD where IdCategoria = { IdCategoria}"; // CONSULTO REGISTRO DEL iDcLIENTE
 
-                dt = Acceso.EjecutarComandoDatos(sentencia);
+               // dt = Acceso.EjecutarComandoDatos(sentencia);
                 foreach (DataRow row in dt.Rows)
                 {
                     // LLENAMOS LOS CAMPOS CON EL REGISTRO CONSULTADO
@@ -67,9 +61,9 @@ namespace _Plantilla_Sistema_facturación_
             {
                 try
                 {
-                    Acceso_datos Acceso = new Acceso_datos();
+                   // Acceso_datos Acceso = new Acceso_datos();
                     string sentencia = $"Exec actualizar_CategoriaProd {IdCategoria},'{txtNombreCategoria.Text}','{DateTime.Now.ToShortDateString()}','Juan'";
-                    MessageBox.Show(Acceso.EjecutarComando(sentencia));
+                   // MessageBox.Show(Acceso.EjecutarComando(sentencia));
                     actualizado = true;
                     txtNombreCategoria.Clear();
                 }

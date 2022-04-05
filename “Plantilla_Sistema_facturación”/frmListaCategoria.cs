@@ -23,7 +23,7 @@ namespace _Plantilla_Sistema_facturación_
         }
 
         DataTable dt = new DataTable(); // CREAMOS EL OBJETO DE TIPO DATATABLE PARA ALMACENAR LO CONSULTADO
-        Acceso_datos Acceso = new Acceso_datos(); // creamos un objeto con la clase Acceso_datos
+        //Acceso_datos Acceso = new Acceso_datos(); // creamos un objeto con la clase Acceso_datos
 
 
         public void llenar_grid()
@@ -31,7 +31,7 @@ namespace _Plantilla_Sistema_facturación_
             //ACTUALIZAR EL REGISTRO CON EL ID PASADO
             string sentencia = $"select IdCategoria,StrDescripcion from TBLCATEGORIA_PROD"; // CONSULTO REGISTRO DEL iDcLIENTE
 
-            dt = Acceso.EjecutarComandoDatos(sentencia);
+            //dt = Acceso.EjecutarComandoDatos(sentencia);
             foreach (DataRow row in dt.Rows)
             {
                 // LLENAMOS LOS CAMPOS CON EL REGISTRO CONSULTADO
@@ -65,7 +65,7 @@ namespace _Plantilla_Sistema_facturación_
                     MessageBox.Show($"BORRANDO indice{e.RowIndex} ID{dgvCategoria[0, posActual].Value.ToString()}");//Mostramos mensaje
                 int IdCategoria = Convert.ToInt32(dgvCategoria[0, posActual].Value.ToString());
                 string sentencia = $"EXEC Eliminar_CategoriaProducto {IdCategoria}";
-                string mensaje = Acceso.EjecutarComando(sentencia);
+                //string mensaje = Acceso.EjecutarComando(sentencia);
                 dgvCategoria.Rows.Clear();
                 llenar_grid();
             }
@@ -82,7 +82,7 @@ namespace _Plantilla_Sistema_facturación_
         public void consultar()
         {
             string sentencia = $"select *  from TBLCATEGORIA_PROD where StrDescripcion ='{txtBuscarCategoria.Text}'"; // CONSULTO REGISTRO DEL iDcLIENTE
-            dt = Acceso.EjecutarComandoDatos(sentencia);
+            //dt = Acceso.EjecutarComandoDatos(sentencia);
 
 
             if (dt.Rows.Count > 0)

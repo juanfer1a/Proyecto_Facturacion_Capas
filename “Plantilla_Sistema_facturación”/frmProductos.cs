@@ -27,7 +27,7 @@ namespace _Plantilla_Sistema_facturación_
         }
 
         DataTable dt = new DataTable(); // CREAMOS EL OBJETO DE TIPO DATATABLE PARA ALMACENAR LO CONSULTADO
-        Acceso_datos Acceso = new Acceso_datos(); // creamos un objeto con la clase Acceso_datos
+        //Acceso_datos Acceso = new Acceso_datos(); // creamos un objeto con la clase Acceso_datos
         public void Llenar_Productos()
         {
             if (IdProducto == 0)
@@ -39,7 +39,7 @@ namespace _Plantilla_Sistema_facturación_
              //ACTUALIZAR EL REGISTRO CON EL ID PASADO
                 string sentencia = $"select * from TBLPRODUCTO where IdProducto = { IdProducto}"; // CONSULTO REGISTRO DEL iDcLIENTE
 
-                dt = Acceso.EjecutarComandoDatos(sentencia);
+                //dt = Acceso.EjecutarComandoDatos(sentencia);
                 foreach (DataRow row in dt.Rows)
                 {
                     // LLENAMOS LOS CAMPOS CON EL REGISTRO CONSULTADO
@@ -68,11 +68,11 @@ namespace _Plantilla_Sistema_facturación_
             {
                 try
                 {
-                    Acceso_datos Acceso = new Acceso_datos();
+                    //Acceso_datos Acceso = new Acceso_datos();
                     string sentencia = $"Exec actualizar_Producto {IdProducto},'{txtNombreProducto.Text}','{txtCodRef.Text}'," +
                         $"{txtPrecioCompra.Text},{txtPrecioVenta.Text},'{cboCategoria.SelectedValue}','{txbDetalle.Text}'," +
                         $"'Ninguna',{txtCantStock.Text},'Juan','{DateTime.Now.ToShortDateString()}'";
-                    MessageBox.Show(Acceso.EjecutarComando(sentencia));
+                   // MessageBox.Show(Acceso.EjecutarComando(sentencia));
                     actualizado = true;
                 }
                 catch (Exception ex)
@@ -146,13 +146,13 @@ namespace _Plantilla_Sistema_facturación_
         private void llenar_combo_categoria()
         {
             DataTable dt = new DataTable();
-            Acceso_datos Acceso = new Acceso_datos(); // creamos un objeto con la clase Acceso_datos
-            dt = Acceso.cargartabla("TBLCATEGORIA_PROD", "");
+            //Acceso_datos Acceso = new Acceso_datos(); // creamos un objeto con la clase Acceso_datos
+            //dt = Acceso.cargartabla("TBLCATEGORIA_PROD", "");
             cboCategoria.DataSource = dt;
             cboCategoria.DisplayMember = "StrDescripcion";
             cboCategoria.ValueMember = "IdCategoria";
 
-            Acceso.CerrarBd();
+            //Acceso.CerrarBd();
         }
 
 

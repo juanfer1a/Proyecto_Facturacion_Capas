@@ -24,7 +24,7 @@ namespace _Plantilla_Sistema_facturación_
 
 
         DataTable dt = new DataTable(); // CREAMOS EL OBJETO DE TIPO DATATABLE PARA ALMACENAR LO CONSULTADO
-        Acceso_datos Acceso = new Acceso_datos(); // creamos un objeto con la clase Acceso_datos
+        //Acceso_datos Acceso = new Acceso_datos(); // creamos un objeto con la clase Acceso_datos
 
 
         public void Llenar_grid()
@@ -32,7 +32,7 @@ namespace _Plantilla_Sistema_facturación_
             //ACTUALIZAR EL REGISTRO CON EL ID PASADO
             string sentencia = $"EXEC SpConsultaFactura"; // CONSULTA TABLA DETALLE FACTURAS
 
-            dt = Acceso.EjecutarComandoDatos(sentencia);
+            //dt = Acceso.EjecutarComandoDatos(sentencia);
             foreach (DataRow row in dt.Rows)
             {
                 // LLENAMOS LOS CAMPOS CON EL REGISTRO CONSULTADO
@@ -62,7 +62,7 @@ namespace _Plantilla_Sistema_facturación_
                     MessageBox.Show($"BORRANDO indice{e.RowIndex} ID{dgvFacturas[0, posActual].Value.ToString()}");//Mostramos mensaje
                 int IdFactura = Convert.ToInt32(dgvFacturas[0, posActual].Value.ToString());
                 string sentencia = $"Delete TBLFACTURA WHERE IdFactura = {IdFactura}";
-                string mensaje = Acceso.EjecutarComando(sentencia);
+                //string mensaje = Acceso.EjecutarComando(sentencia);
                 dgvFacturas.Rows.Clear();
                 Llenar_grid();
             }
@@ -81,7 +81,7 @@ namespace _Plantilla_Sistema_facturación_
         {
             bool bandera = false;
             string sentencia = $"EXEC SpConsultaFactura";
-            dt = Acceso.EjecutarComandoDatos(sentencia);
+            //dt = Acceso.EjecutarComandoDatos(sentencia);
 
 
             if (dt.Rows.Count > 0)

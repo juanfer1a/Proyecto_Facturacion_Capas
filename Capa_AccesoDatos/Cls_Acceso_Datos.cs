@@ -45,7 +45,7 @@ namespace Capa_AccesoDatos
             {
 
                 // creamos un objeto de tipo conexión a la base de datos y se pasa como parámetro la cadena de conexión
-                conexion = new SqlConnection("Data Source=DESKTOP-VCBTPVK;Initial Catalog =FACTURAS; Integrated Security = True");
+                conexion = new SqlConnection("Data Source=DESKTOP-L4UOS2U\\SQLEXPRESSJUAN;Initial Catalog =FACTURAS; Integrated Security = True");
                 conexion.Open(); // invocamos método para abrir la base de datos
 
             }

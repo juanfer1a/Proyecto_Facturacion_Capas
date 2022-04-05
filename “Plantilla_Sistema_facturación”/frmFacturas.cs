@@ -43,11 +43,11 @@ namespace _Plantilla_Sistema_facturación_
                         txbNroFactura.Text = "0";
                     }
                     
-                    Acceso_datos Acceso = new Acceso_datos();
+                    //Acceso_datos Acceso = new Acceso_datos();
                     string sentencia = $"Exec actualizar_Factura {txbNroFactura.Text},'{dtpFechaFactura.Text}','{cboClienteFactura.SelectedValue}','{cboEmpleadoFactura.SelectedValue}'," +
                         $"{txtDescuento.Text},{txtTotalIva.Text},'{txtTotalFactura.Text}','{cboEstadoFactura.SelectedValue}','{DateTime.Now.ToShortDateString()}'," +
                         $"'Juan'";
-                    MessageBox.Show(Acceso.EjecutarComando(sentencia));
+                    //MessageBox.Show(Acceso.EjecutarComando(sentencia));
                     actualizado = true;
                 }
                 catch (Exception ex)
@@ -61,37 +61,37 @@ namespace _Plantilla_Sistema_facturación_
         private void llenar_combo_empleado()
         {
             DataTable dt = new DataTable();
-            Acceso_datos Acceso = new Acceso_datos(); // creamos un objeto con la clase Acceso_datos
-            dt = Acceso.cargartabla("TBLEMPLEADO", "");
+            //Acceso_datos Acceso = new Acceso_datos(); // creamos un objeto con la clase Acceso_datos
+            //dt = Acceso.cargartabla("TBLEMPLEADO", "");
             cboEmpleadoFactura.DataSource = dt;
             cboEmpleadoFactura.DisplayMember = "strNombre";
             cboEmpleadoFactura.ValueMember = "IdEmpleado";
 
-            Acceso.CerrarBd();
+            //Acceso.CerrarBd();
         }
 
         private void llenar_combo_clientes()
         {
             DataTable dt = new DataTable();
-            Acceso_datos Acceso = new Acceso_datos(); // creamos un objeto con la clase Acceso_datos
-            dt = Acceso.cargartabla("TBLCLIENTES", "");
+            //Acceso_datos Acceso = new Acceso_datos(); // creamos un objeto con la clase Acceso_datos
+            //dt = Acceso.cargartabla("TBLCLIENTES", "");
             cboClienteFactura.DataSource = dt;
             cboClienteFactura.DisplayMember = "StrNombre";
             cboClienteFactura.ValueMember = "IdCliente";
 
-            Acceso.CerrarBd();
+            //Acceso.CerrarBd();
         }
 
         private void llenar_combo_estadoFactura()
         {
             DataTable dt = new DataTable();
-            Acceso_datos Acceso = new Acceso_datos(); // creamos un objeto con la clase Acceso_datos
-            dt = Acceso.cargartabla("TBLESTADO_FACTURA", "");
+            //Acceso_datos Acceso = new Acceso_datos(); // creamos un objeto con la clase Acceso_datos
+            //dt = Acceso.cargartabla("TBLESTADO_FACTURA", "");
             cboEstadoFactura.DataSource = dt;
             cboEstadoFactura.DisplayMember = "StrDescripcion";
             cboEstadoFactura.ValueMember = "IdEstadoFactura";
 
-            Acceso.CerrarBd();
+            //Acceso.CerrarBd();
         }
         //FUNCIÓN QE PERMITE VALIDAR LOS CAMPOS DEL FORMULARIO
         private Boolean validar()

@@ -1,14 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using MaterialSkin;
-using MaterialSkin.Controls;
+using Capa_LogicaDeNegocios;
 
 namespace _Plantilla_Sistema_facturación_
 {
@@ -22,23 +15,23 @@ namespace _Plantilla_Sistema_facturación_
         {
             Llenar_Cliente();
         }
-        public int idCliente { get; set; }// ATRIBUTO QUE PERMITE RECIBIR COMO PARAMETRO EL iDcLIENTE
+        public int IdCliente { get; set; }// ATRIBUTO QUE PERMITE RECIBIR COMO PARAMETRO EL iDcLIENTE
 
         DataTable dt = new DataTable(); // CREAMOS EL OBJETO DE TIPO DATATABLE PARA ALMACENAR LO CONSULTADO
-        Acceso_datos Acceso = new Acceso_datos(); // creamos un objeto con la clase Acceso_datos
+        Cls_Clientes clientes = new Cls_Clientes();
 
         public void Llenar_Cliente()
         {
-            if (idCliente == 0)
+            if (IdCliente == 0)
             {//Registro nuevo
                 lblTitulo.Text = "INGRESO NUEVO CLIENTE";
             }
             else
             {//Actulizar cliente
                 lblTitulo.Text = "EDITAR CLIENTE";
-                string sentencia = $"select * from TBLCLIENTES where IdCliente = {idCliente}"; // CONSULTO REGISTRO DEL iDcLIENTE
+                dt = clientes.Consulta_Clientes(IdCliente); // CONSULTO REGISTRO DEL iDcLIENTE
 
-                dt = Acceso.EjecutarComandoDatos(sentencia);
+
                 foreach (DataRow row in dt.Rows)
                 {
                     // LLENAMOS LOS CAMPOS CON EL REGISTRO CONSULTADO
@@ -54,26 +47,36 @@ namespace _Plantilla_Sistema_facturación_
 
         // *************************************** ACTUALIZACIONES ********* ********************
         // ------- funciones que permiten el ingreso , retiro y actualización de la información de Clientes en la base de datos
-        public bool Guardar()
+        public void Guardar()
         {
-            Boolean actualizado = false;
+            string mensaje = string.Empty;
+            
             if (validar())
             {
                 try
                 {
-                    Acceso_datos Acceso = new Acceso_datos();
-                    string sentencia = $"Exec actualizar_Cliente {idCliente},'{txtNombreCliente.Text}','{txtDocumento.Text}' ,'{txtDireccion.Text}'," +
-                        $"'{txtTelefono.Text}', '{txtEmail.Text}','Juan','{DateTime.Now.ToShortDateString()}'";
-                    MessageBox.Show(Acceso.EjecutarComando(sentencia));
-                    actualizado = true;
+                    
+
+                    clientes.C_IdCliente = IdCliente;
+                    clientes.C_StrNombre = txtNombreCliente.Text;
+                    clientes.C_NumDocumento = int.Parse(txtDocumento.Text);
+                    clientes.C_StrDireccion = txtDireccion.Text;
+                    clientes.C_StrTelefono = txtTelefono.Text;
+                    clientes.C_StrEmail = txtEmail.Text;
+                    clientes.C_DtmFechaModifica = DateTime.Now.ToShortDateString();
+                    clientes.C_StrUsuarioModifica = "Juan";
+                    mensaje = clientes.Actualizar_Cliente();
+                    MessageBox.Show(mensaje);
+
+
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show("falló inserción: " + ex);
-                    actualizado = false;
+                    
                 }
             }
-            return actualizado;
+            
         }
         //FUNCIÓN QE PERMITE VALIDAR LOS CAMPOS DEL FORMULARIO
         private Boolean validar()
