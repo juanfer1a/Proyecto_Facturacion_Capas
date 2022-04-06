@@ -1,11 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Capa_LogicaDeNegocios;
 using System.Windows.Forms;
 
 namespace _Plantilla_Sistema_facturación_
@@ -23,15 +18,14 @@ namespace _Plantilla_Sistema_facturación_
         }
 
         DataTable dt = new DataTable(); // CREAMOS EL OBJETO DE TIPO DATATABLE PARA ALMACENAR LO CONSULTADO
-        //Acceso_datos Acceso = new Acceso_datos(); // creamos un objeto con la clase Acceso_datos
+        Cls_Categoria categoria = new Cls_Categoria();
 
 
         public void llenar_grid()
         {
             //ACTUALIZAR EL REGISTRO CON EL ID PASADO
-            string sentencia = $"select IdCategoria,StrDescripcion from TBLCATEGORIA_PROD"; // CONSULTO REGISTRO DEL iDcLIENTE
+            dt = categoria.Consulta_Categoria(); // CONSULTO REGISTRO DEL iDcLIENTE
 
-            //dt = Acceso.EjecutarComandoDatos(sentencia);
             foreach (DataRow row in dt.Rows)
             {
                 // LLENAMOS LOS CAMPOS CON EL REGISTRO CONSULTADO
@@ -62,10 +56,9 @@ namespace _Plantilla_Sistema_facturación_
             {
                 int posActual = dgvCategoria.CurrentRow.Index;//Obtenemos el numero de la fila
                 if (MessageBox.Show("Esta seguro de borrar", "CONFIRMACION", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
-                    MessageBox.Show($"BORRANDO indice{e.RowIndex} ID{dgvCategoria[0, posActual].Value.ToString()}");//Mostramos mensaje
-                int IdCategoria = Convert.ToInt32(dgvCategoria[0, posActual].Value.ToString());
-                string sentencia = $"EXEC Eliminar_CategoriaProducto {IdCategoria}";
-                //string mensaje = Acceso.EjecutarComando(sentencia);
+                    MessageBox.Show($"BORRANDO indice{e.RowIndex} ID{dgvCategoria[0, posActual].Value.ToString()}");//Mostramos mensaje                 
+                categoria.C_IdCategoria = Convert.ToInt32(dgvCategoria[0, posActual].Value.ToString());
+                MessageBox.Show(categoria.Eliminar_Categoria());
                 dgvCategoria.Rows.Clear();
                 llenar_grid();
             }
@@ -81,9 +74,7 @@ namespace _Plantilla_Sistema_facturación_
 
         public void consultar()
         {
-            string sentencia = $"select *  from TBLCATEGORIA_PROD where StrDescripcion ='{txtBuscarCategoria.Text}'"; // CONSULTO REGISTRO DEL iDcLIENTE
-            //dt = Acceso.EjecutarComandoDatos(sentencia);
-
+            dt = categoria.Filtrar_Categoria(txtBuscarCategoria.Text);// CONSULTO REGISTRO 
 
             if (dt.Rows.Count > 0)
             {
@@ -111,6 +102,7 @@ namespace _Plantilla_Sistema_facturación_
             {
                 MensajeError.SetError(txtBuscarCategoria, "Debe ingresar el nombre de la categoria a buscar");
                 txtBuscarCategoria.Focus();
+                llenar_grid();
                 errorCampos = false;
             }
             else

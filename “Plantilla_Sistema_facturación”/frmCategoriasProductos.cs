@@ -19,7 +19,7 @@ namespace _Plantilla_Sistema_facturación_
         }
 
         DataTable dt = new DataTable(); // CREAMOS EL OBJETO DE TIPO DATATABLE PARA ALMACENAR LO CONSULTADO
-        //Acceso = new Acceso_datos(); // creamos un objeto con la clase Acceso_datos
+        Cls_Categoria categoria = new Cls_Categoria();
 
 
 
@@ -38,9 +38,9 @@ namespace _Plantilla_Sistema_facturación_
             else
             {//Actulizar cliente
              //ACTUALIZAR EL REGISTRO CON EL ID PASADO
-                string sentencia = $"select * from TBLCATEGORIA_PROD where IdCategoria = { IdCategoria}"; // CONSULTO REGISTRO DEL iDcLIENTE
+                dt = categoria.Consulta_Categoria(IdCategoria); // CONSULTO REGISTRO DEL iDcLIENTE
 
-               // dt = Acceso.EjecutarComandoDatos(sentencia);
+                // dt = Acceso.EjecutarComandoDatos(sentencia);
                 foreach (DataRow row in dt.Rows)
                 {
                     // LLENAMOS LOS CAMPOS CON EL REGISTRO CONSULTADO
@@ -54,26 +54,29 @@ namespace _Plantilla_Sistema_facturación_
         }
         // *************************************** ACTUALIZACIONES ********* ********************
         // ------- funciones que permiten el ingreso , retiro y actualización de la información de Clientes en la base de datos
-        public bool Guardar()
+        public void Guardar()
         {
-            Boolean actualizado = false;
+            string mensaje = string.Empty;
             if (validar())
             {
                 try
                 {
-                   // Acceso_datos Acceso = new Acceso_datos();
-                    string sentencia = $"Exec actualizar_CategoriaProd {IdCategoria},'{txtNombreCategoria.Text}','{DateTime.Now.ToShortDateString()}','Juan'";
-                   // MessageBox.Show(Acceso.EjecutarComando(sentencia));
-                    actualizado = true;
+                    categoria.C_IdCategoria = IdCategoria;
+                    categoria.C_StrDescripcion = txtNombreCategoria.Text;
+                    categoria.C_DtmFechaModifica = DateTime.Now.ToShortDateString();
+                    categoria.C_StrUsuarioModifico = "Juan";
+                    mensaje = categoria.Actualizar_Categoria();
+                    MessageBox.Show(mensaje);
                     txtNombreCategoria.Clear();
+
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show("falló inserción: " + ex);
-                    actualizado = false;
+
                 }
             }
-            return actualizado;
+
         }
         //FUNCIÓN QE PERMITE VALIDAR LOS CAMPOS DEL FORMULARIO
         private Boolean validar()
