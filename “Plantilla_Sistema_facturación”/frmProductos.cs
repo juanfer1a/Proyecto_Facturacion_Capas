@@ -158,8 +158,7 @@ namespace _Plantilla_Sistema_facturación_
             cboCategoria.DataSource = dt;
             cboCategoria.DisplayMember = "StrDescripcion";
             cboCategoria.ValueMember = "IdCategoria";
-
-           
+                      
         }
 
 

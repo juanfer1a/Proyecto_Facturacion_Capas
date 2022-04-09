@@ -1,11 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Capa_LogicaDeNegocios;
 using System.Windows.Forms;
 
 namespace _Plantilla_Sistema_facturación_
@@ -17,6 +12,8 @@ namespace _Plantilla_Sistema_facturación_
         {
             InitializeComponent();
         }
+
+        ClsFactura factura = new ClsFactura();
 
         private void frmFacturas_Load(object sender, EventArgs e)
         {
@@ -47,6 +44,17 @@ namespace _Plantilla_Sistema_facturación_
                     string sentencia = $"Exec actualizar_Factura {txbNroFactura.Text},'{dtpFechaFactura.Text}','{cboClienteFactura.SelectedValue}','{cboEmpleadoFactura.SelectedValue}'," +
                         $"{txtDescuento.Text},{txtTotalIva.Text},'{txtTotalFactura.Text}','{cboEstadoFactura.SelectedValue}','{DateTime.Now.ToShortDateString()}'," +
                         $"'Juan'";
+                    factura.C_IdFactura
+                    factura.C_DtmFecha
+                    factura.C_IdCliente
+                    factura.C_IdEmpleado
+                    factura.C_NumDescuento
+                    factura.C_NumImpuesto
+                    factura.C_NumValorTotal
+                    factura.C_IdEstado
+                    factura.C_DtmFechaModifica
+                    factura.C_StrUsuarioModifica
+
                     //MessageBox.Show(Acceso.EjecutarComando(sentencia));
                     actualizado = true;
                 }

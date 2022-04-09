@@ -99,11 +99,11 @@ namespace Capa_AccesoDatos
                 CerrarBd();
                 if (retornado > 0)
                 {
-                    Salida = "Datos actulizados correctamente";
+                    Salida = "Datos actualizados correctamente";
                 }
                 else
                 {
-                    Salida = "No se actulizaron los datos";
+                    Salida = "No se actualizaron los datos";
                 }
             }
 

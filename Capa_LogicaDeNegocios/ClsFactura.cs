@@ -5,7 +5,7 @@ using Capa_AccesoDatos;
 
 namespace Capa_LogicaDeNegocios
 {
-    class ClsFactura
+    public class ClsFactura
     {
         public int C_IdFactura { get; set; }
         public int C_DtmFecha { get; set; }
@@ -20,12 +20,12 @@ namespace Capa_LogicaDeNegocios
 
         Cls_Acceso_Datos acceso = new Cls_Acceso_Datos();
 
-        public DataTable Consulta_factura()
+        public DataTable Consulta_Factura()
         {
             string Sentencia;
             try
             {
-                Sentencia = "SELECT * FROM TBLFACTURA";
+                Sentencia = "EXEC SpConsultaFactura";
                 DataTable dt = new DataTable();
                 dt = acceso.EjecutarConsulta(Sentencia);
                 return dt;

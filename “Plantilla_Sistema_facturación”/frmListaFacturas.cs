@@ -1,11 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Capa_LogicaDeNegocios;
 using System.Windows.Forms;
 
 namespace _Plantilla_Sistema_facturación_
@@ -24,15 +19,14 @@ namespace _Plantilla_Sistema_facturación_
 
 
         DataTable dt = new DataTable(); // CREAMOS EL OBJETO DE TIPO DATATABLE PARA ALMACENAR LO CONSULTADO
-        //Acceso_datos Acceso = new Acceso_datos(); // creamos un objeto con la clase Acceso_datos
+        ClsFactura factura = new ClsFactura();
 
 
         public void Llenar_grid()
         {
             //ACTUALIZAR EL REGISTRO CON EL ID PASADO
-            string sentencia = $"EXEC SpConsultaFactura"; // CONSULTA TABLA DETALLE FACTURAS
+            dt = factura.Consulta_Factura();
 
-            //dt = Acceso.EjecutarComandoDatos(sentencia);
             foreach (DataRow row in dt.Rows)
             {
                 // LLENAMOS LOS CAMPOS CON EL REGISTRO CONSULTADO
@@ -48,13 +42,13 @@ namespace _Plantilla_Sistema_facturación_
         }
 
 
-      
+
         private void btnBuscarFactura_Click(object sender, EventArgs e)
         {
-            validar();        
+            validar();
         }
 
-        
+
         private void dgvFacturas_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             if (dgvFacturas.Columns[e.ColumnIndex].Name == "btnBorrar")//Obtenemos el nombre de la columna para comparar
@@ -62,9 +56,9 @@ namespace _Plantilla_Sistema_facturación_
                 int posActual = dgvFacturas.CurrentRow.Index;//Obtenemos el numero de la fila
                 if (MessageBox.Show("Esta seguro de borrar", "CONFIRMACION", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                     MessageBox.Show($"BORRANDO indice{e.RowIndex} ID{dgvFacturas[0, posActual].Value.ToString()}");//Mostramos mensaje
-                int IdFactura = Convert.ToInt32(dgvFacturas[0, posActual].Value.ToString());
-                string sentencia = $"Delete TBLFACTURA WHERE IdFactura = {IdFactura}";
-                //string mensaje = Acceso.EjecutarComando(sentencia);
+                factura.C_IdFactura = Convert.ToInt32(dgvFacturas[0, posActual].Value.ToString());
+                string mensaje = factura.Eliminar_Factura();
+                MessageBox.Show(mensaje);
                 dgvFacturas.Rows.Clear();
                 Llenar_grid();
             }
@@ -81,10 +75,9 @@ namespace _Plantilla_Sistema_facturación_
 
         public void consultar()
         {
-            bool bandera = false;
-            string sentencia = $"EXEC SpConsultaFactura";
-            //dt = Acceso.EjecutarComandoDatos(sentencia);
 
+            bool bandera = false;
+            dt = factura.Consulta_Factura();
 
             if (dt.Rows.Count > 0)
             {
@@ -104,7 +97,7 @@ namespace _Plantilla_Sistema_facturación_
 
                 if (!bandera)
                 {
-                    MessageBox.Show($"No se encuentra ninguna factura asociada al usuario{txtBuscarFactura.Text}");
+                    MessageBox.Show($"No se encuentra ninguna factura asociada al Cliente {txtBuscarFactura.Text}");
                     txtBuscarFactura.Clear();
                 }
             }
@@ -119,16 +112,16 @@ namespace _Plantilla_Sistema_facturación_
                 txtBuscarFactura.Focus();
                 errorCampos = false;
             }
-            else 
+            else
             {
                 consultar();
-                MensajeError.SetError(txtBuscarFactura, string.Empty); 
+                MensajeError.SetError(txtBuscarFactura, string.Empty);
             }
 
             return errorCampos;
         }
 
-            private void btnSalirProducto_Click(object sender, EventArgs e)
+        private void btnSalirProducto_Click(object sender, EventArgs e)
         {
             this.Close();
         }
