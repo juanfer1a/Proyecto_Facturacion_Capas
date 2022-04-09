@@ -20,7 +20,7 @@ namespace Capa_LogicaDeNegocios
 
         Cls_Acceso_Datos acceso = new Cls_Acceso_Datos();
 
-        public DataTable Consulta_Producto()
+        public DataTable Consulta_factura()
         {
             string Sentencia;
             try
@@ -36,12 +36,12 @@ namespace Capa_LogicaDeNegocios
             }
         }
 
-        public DataTable Consulta_Producto(string IdProducto)
+        public DataTable Consulta_Factura(int IdFactura)
         {
             string Sentencia;
             try
             {
-                Sentencia = $"SELECT * FROM TBLFACTURA WHERE IdProducto = '{IdProducto}'";
+                Sentencia = $"SELECT * FROM TBLFACTURA WHERE IdFactura = '{IdFactura}'";
                 DataTable dt = new DataTable();
                 dt = acceso.EjecutarConsulta(Sentencia);
                 return dt;
@@ -52,7 +52,7 @@ namespace Capa_LogicaDeNegocios
             }
         }
 
-        public DataTable Filtrar_Producto(string filtro)
+        public DataTable Filtrar_Factura(string filtro)
         {
             string Sentencia;
             try
@@ -68,22 +68,7 @@ namespace Capa_LogicaDeNegocios
             }
         }
 
-        public DataTable Consulta_Categoria()
-        {
-            string Sentencia;
-            try
-            {
-                Sentencia = "SELECT * FROM TBLFACTURA";
-                DataTable dt = new DataTable();
-                dt = acceso.EjecutarConsulta(Sentencia);
-                return dt;
-            }
-            catch (Exception ex)
-            {
-                return null;
-            }
-        }
-
+       
         public string Eliminar_Factura()
         {
             string mensaje = string.Empty;
@@ -91,21 +76,16 @@ namespace Capa_LogicaDeNegocios
             {
                 //estructura tipo lista para los parametros que necesitan el procedimiento almacenado 
                 List<Cls_parametros> lst = new List<Cls_parametros>();
-
-                //
+                
                 lst.Add(new Cls_parametros("@IdFactura", C_IdFactura));
 
-
                 mensaje = acceso.EjecutarProcedimiento("Eliminar_Producto", lst);
-
 
             }
             catch (Exception ex)
             {
-
                 mensaje = "FALLO ELIMINACION DE LA FACTURA" + ex.Message;
             }
-
 
             return mensaje;
         }

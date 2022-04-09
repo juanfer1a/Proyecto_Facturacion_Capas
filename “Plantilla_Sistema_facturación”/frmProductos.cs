@@ -1,14 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using MaterialSkin;
-using MaterialSkin.Controls;
+using Capa_LogicaDeNegocios;
 
 namespace _Plantilla_Sistema_facturación_
 {
@@ -27,7 +20,7 @@ namespace _Plantilla_Sistema_facturación_
         }
 
         DataTable dt = new DataTable(); // CREAMOS EL OBJETO DE TIPO DATATABLE PARA ALMACENAR LO CONSULTADO
-        //Acceso_datos Acceso = new Acceso_datos(); // creamos un objeto con la clase Acceso_datos
+        Cls_Productos productos = new Cls_Productos();
         public void Llenar_Productos()
         {
             if (IdProducto == 0)
@@ -35,9 +28,10 @@ namespace _Plantilla_Sistema_facturación_
                 lblTituloProducto.Text = "INGRESO NUEVO PRODUCTO";
             }
             else
-            {//Actulizar cliente
-             //ACTUALIZAR EL REGISTRO CON EL ID PASADO
-                string sentencia = $"select * from TBLPRODUCTO where IdProducto = { IdProducto}"; // CONSULTO REGISTRO DEL iDcLIENTE
+            {
+                lblTituloProducto.Text = "MODIFICAR PRODUCTO";
+                //ACTUALIZAR EL REGISTRO CON EL ID PASADO
+                dt = productos.Consulta_Producto(IdProducto);
 
                 //dt = Acceso.EjecutarComandoDatos(sentencia);
                 foreach (DataRow row in dt.Rows)
@@ -61,27 +55,40 @@ namespace _Plantilla_Sistema_facturación_
 
         // *************************************** ACTUALIZACIONES ********* ********************
         // ------- funciones que permiten el ingreso , retiro y actualización de la información de Clientes en la base de datos
-        public bool Guardar()
+        public void Guardar()
         {
-            Boolean actualizado = false;
+            string mensaje = string.Empty;
             if (validar())
             {
                 try
                 {
-                    //Acceso_datos Acceso = new Acceso_datos();
-                    string sentencia = $"Exec actualizar_Producto {IdProducto},'{txtNombreProducto.Text}','{txtCodRef.Text}'," +
+                        string sentencia = $"Exec actualizar_Producto {IdProducto},'{txtNombreProducto.Text}','{txtCodRef.Text}'," +
                         $"{txtPrecioCompra.Text},{txtPrecioVenta.Text},'{cboCategoria.SelectedValue}','{txbDetalle.Text}'," +
                         $"'Ninguna',{txtCantStock.Text},'Juan','{DateTime.Now.ToShortDateString()}'";
-                   // MessageBox.Show(Acceso.EjecutarComando(sentencia));
-                    actualizado = true;
+
+                    productos.C_IdProducto = IdProducto;
+                    productos.C_StrNombre = txtNombreProducto.Text;
+                    productos.C_StrCodigo = txtCodRef.Text;
+                    productos.C_NumPrecioCompra = int.Parse(txtPrecioCompra.Text);
+                    productos.C_NumPrecioVenta = int.Parse(txtPrecioVenta.Text);
+                    productos.C_IdCategoria = int.Parse(cboCategoria.SelectedValue.ToString());
+                    productos.C_StrDetalle = txbDetalle.Text;
+                    productos.C_strFoto = "Ninguna";
+                    productos.C_NumStock = int.Parse(txtCantStock.Text);
+                    productos.C_DtmFechaModifica = DateTime.Now.ToShortDateString();
+                    productos.C_StrUsuarioModifica = "Juan";
+                    mensaje = productos.Actualizar_Producto();
+                    MessageBox.Show(mensaje);
+                    
+
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show("falló inserción: " + ex);
-                    actualizado = false;
+                   
                 }
             }
-            return actualizado;
+            
         }
         //FUNCIÓN QE PERMITE VALIDAR LOS CAMPOS DEL FORMULARIO
         private Boolean validar()
@@ -146,18 +153,18 @@ namespace _Plantilla_Sistema_facturación_
         private void llenar_combo_categoria()
         {
             DataTable dt = new DataTable();
-            //Acceso_datos Acceso = new Acceso_datos(); // creamos un objeto con la clase Acceso_datos
-            //dt = Acceso.cargartabla("TBLCATEGORIA_PROD", "");
+            Cls_Categoria categoria = new Cls_Categoria(); // creamos un objeto con la clase categoria
+            dt = categoria.Consulta_Categoria();
             cboCategoria.DataSource = dt;
             cboCategoria.DisplayMember = "StrDescripcion";
             cboCategoria.ValueMember = "IdCategoria";
 
-            //Acceso.CerrarBd();
+           
         }
 
 
         private void lblSalir_Click(object sender, EventArgs e)
-        {
+        {            
             this.Close();
         }
 

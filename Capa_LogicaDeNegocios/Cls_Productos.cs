@@ -6,19 +6,19 @@ using Capa_AccesoDatos;
 
 namespace Capa_LogicaDeNegocios
 {
-    class Cls_Productos
+    public class Cls_Productos
     {
         public int C_IdProducto { get; set; }
-        public int C_StrNombre { get; set; }
-        public int C_StrCodigo { get; set; }
+        public string C_StrNombre { get; set; }
+        public string C_StrCodigo { get; set; }
         public int C_NumPrecioCompra { get; set; }
         public int C_NumPrecioVenta { get; set; }
         public int C_IdCategoria { get; set; }
-        public int C_StrDetalle { get; set; }
-        public int C_strFoto { get; set; }
+        public string C_StrDetalle { get; set; }
+        public string C_strFoto { get; set; }
         public int C_NumStock { get; set; }
-        public int C_DtmFechaModifica { get; set; }
-        public int C_StrUsuarioModifica { get; set; }
+        public string C_DtmFechaModifica { get; set; }
+        public string C_StrUsuarioModifica { get; set; }
 
         Cls_Acceso_Datos acceso = new Cls_Acceso_Datos();
 
@@ -38,7 +38,7 @@ namespace Capa_LogicaDeNegocios
             }
         }
 
-        public DataTable Consulta_Producto(string IdProducto)
+        public DataTable Consulta_Producto(int IdProducto)
         {
             string Sentencia;
             try
@@ -112,7 +112,7 @@ namespace Capa_LogicaDeNegocios
             return mensaje;
         }
 
-        public string Actulizar_Producto()
+        public string Actualizar_Producto()
         {
             string mensaje = string.Empty;
 

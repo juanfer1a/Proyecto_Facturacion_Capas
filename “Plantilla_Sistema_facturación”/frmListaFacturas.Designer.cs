@@ -32,11 +32,6 @@ namespace _Plantilla_Sistema_facturación_
             this.components = new System.ComponentModel.Container();
             this.btnSalirFactura = new MaterialSkin.Controls.MaterialRaisedButton();
             this.dgvFacturas = new System.Windows.Forms.DataGridView();
-            this.btnFacturaNuevo = new MaterialSkin.Controls.MaterialRaisedButton();
-            this.btnBuscarFactura = new MaterialSkin.Controls.MaterialRaisedButton();
-            this.txtBuscarFactura = new MaterialSkin.Controls.MaterialSingleLineTextField();
-            this.lblAdminProductos = new MaterialSkin.Controls.MaterialLabel();
-            this.MensajeError = new System.Windows.Forms.ErrorProvider(this.components);
             this.intNroFactura = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.strFechaRegistro = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.strCliente = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -44,6 +39,11 @@ namespace _Plantilla_Sistema_facturación_
             this.strEstado = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btnEditar = new System.Windows.Forms.DataGridViewButtonColumn();
             this.btnBorrar = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.btnFacturaNuevo = new MaterialSkin.Controls.MaterialRaisedButton();
+            this.btnBuscarFactura = new MaterialSkin.Controls.MaterialRaisedButton();
+            this.txtBuscarFactura = new MaterialSkin.Controls.MaterialSingleLineTextField();
+            this.lblAdminProductos = new MaterialSkin.Controls.MaterialLabel();
+            this.MensajeError = new System.Windows.Forms.ErrorProvider(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.dgvFacturas)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.MensajeError)).BeginInit();
             this.SuspendLayout();
@@ -80,72 +80,6 @@ namespace _Plantilla_Sistema_facturación_
             this.dgvFacturas.Size = new System.Drawing.Size(892, 150);
             this.dgvFacturas.TabIndex = 18;
             this.dgvFacturas.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvFacturas_CellContentClick);
-            // 
-            // btnFacturaNuevo
-            // 
-            this.btnFacturaNuevo.AutoSize = true;
-            this.btnFacturaNuevo.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.btnFacturaNuevo.Depth = 0;
-            this.btnFacturaNuevo.Icon = null;
-            this.btnFacturaNuevo.Location = new System.Drawing.Point(854, 215);
-            this.btnFacturaNuevo.MouseState = MaterialSkin.MouseState.HOVER;
-            this.btnFacturaNuevo.Name = "btnFacturaNuevo";
-            this.btnFacturaNuevo.Primary = true;
-            this.btnFacturaNuevo.Size = new System.Drawing.Size(66, 36);
-            this.btnFacturaNuevo.TabIndex = 17;
-            this.btnFacturaNuevo.Text = "NUEVO";
-            this.btnFacturaNuevo.UseVisualStyleBackColor = true;
-            this.btnFacturaNuevo.Click += new System.EventHandler(this.btnProductoNuevo_Click);
-            // 
-            // btnBuscarFactura
-            // 
-            this.btnBuscarFactura.AutoSize = true;
-            this.btnBuscarFactura.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.btnBuscarFactura.Depth = 0;
-            this.btnBuscarFactura.Icon = null;
-            this.btnBuscarFactura.Location = new System.Drawing.Point(371, 215);
-            this.btnBuscarFactura.MouseState = MaterialSkin.MouseState.HOVER;
-            this.btnBuscarFactura.Name = "btnBuscarFactura";
-            this.btnBuscarFactura.Primary = true;
-            this.btnBuscarFactura.Size = new System.Drawing.Size(74, 36);
-            this.btnBuscarFactura.TabIndex = 16;
-            this.btnBuscarFactura.Text = "BUSCAR";
-            this.btnBuscarFactura.UseVisualStyleBackColor = true;
-            this.btnBuscarFactura.Click += new System.EventHandler(this.btnBuscarProducto_Click);
-            // 
-            // txtBuscarFactura
-            // 
-            this.txtBuscarFactura.Depth = 0;
-            this.txtBuscarFactura.Hint = "Buscar Factura por Cliente";
-            this.txtBuscarFactura.Location = new System.Drawing.Point(28, 228);
-            this.txtBuscarFactura.MaxLength = 32767;
-            this.txtBuscarFactura.MouseState = MaterialSkin.MouseState.HOVER;
-            this.txtBuscarFactura.Name = "txtBuscarFactura";
-            this.txtBuscarFactura.PasswordChar = '\0';
-            this.txtBuscarFactura.SelectedText = "";
-            this.txtBuscarFactura.SelectionLength = 0;
-            this.txtBuscarFactura.SelectionStart = 0;
-            this.txtBuscarFactura.Size = new System.Drawing.Size(321, 23);
-            this.txtBuscarFactura.TabIndex = 15;
-            this.txtBuscarFactura.TabStop = false;
-            this.txtBuscarFactura.UseSystemPasswordChar = false;
-            // 
-            // lblAdminProductos
-            // 
-            this.lblAdminProductos.AutoSize = true;
-            this.lblAdminProductos.Depth = 0;
-            this.lblAdminProductos.Font = new System.Drawing.Font("Roboto", 11F);
-            this.lblAdminProductos.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.lblAdminProductos.Location = new System.Drawing.Point(349, 78);
-            this.lblAdminProductos.MouseState = MaterialSkin.MouseState.HOVER;
-            this.lblAdminProductos.Name = "lblAdminProductos";
-            this.lblAdminProductos.Size = new System.Drawing.Size(212, 19);
-            this.lblAdminProductos.TabIndex = 20;
-            this.lblAdminProductos.Text = "ADMINISTRACION FACTURAS";
-            // 
-            // MensajeError
-            // 
-            this.MensajeError.ContainerControl = this;
             // 
             // intNroFactura
             // 
@@ -195,6 +129,72 @@ namespace _Plantilla_Sistema_facturación_
             this.btnBorrar.Text = "BORRAR";
             this.btnBorrar.UseColumnTextForButtonValue = true;
             this.btnBorrar.Width = 80;
+            // 
+            // btnFacturaNuevo
+            // 
+            this.btnFacturaNuevo.AutoSize = true;
+            this.btnFacturaNuevo.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btnFacturaNuevo.Depth = 0;
+            this.btnFacturaNuevo.Icon = null;
+            this.btnFacturaNuevo.Location = new System.Drawing.Point(854, 215);
+            this.btnFacturaNuevo.MouseState = MaterialSkin.MouseState.HOVER;
+            this.btnFacturaNuevo.Name = "btnFacturaNuevo";
+            this.btnFacturaNuevo.Primary = true;
+            this.btnFacturaNuevo.Size = new System.Drawing.Size(66, 36);
+            this.btnFacturaNuevo.TabIndex = 17;
+            this.btnFacturaNuevo.Text = "NUEVO";
+            this.btnFacturaNuevo.UseVisualStyleBackColor = true;
+            this.btnFacturaNuevo.Click += new System.EventHandler(this.btnProductoNuevo_Click);
+            // 
+            // btnBuscarFactura
+            // 
+            this.btnBuscarFactura.AutoSize = true;
+            this.btnBuscarFactura.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.btnBuscarFactura.Depth = 0;
+            this.btnBuscarFactura.Icon = null;
+            this.btnBuscarFactura.Location = new System.Drawing.Point(371, 215);
+            this.btnBuscarFactura.MouseState = MaterialSkin.MouseState.HOVER;
+            this.btnBuscarFactura.Name = "btnBuscarFactura";
+            this.btnBuscarFactura.Primary = true;
+            this.btnBuscarFactura.Size = new System.Drawing.Size(74, 36);
+            this.btnBuscarFactura.TabIndex = 16;
+            this.btnBuscarFactura.Text = "BUSCAR";
+            this.btnBuscarFactura.UseVisualStyleBackColor = true;
+            this.btnBuscarFactura.Click += new System.EventHandler(this.btnBuscarFactura_Click);
+            // 
+            // txtBuscarFactura
+            // 
+            this.txtBuscarFactura.Depth = 0;
+            this.txtBuscarFactura.Hint = "Buscar Factura por Cliente";
+            this.txtBuscarFactura.Location = new System.Drawing.Point(28, 228);
+            this.txtBuscarFactura.MaxLength = 32767;
+            this.txtBuscarFactura.MouseState = MaterialSkin.MouseState.HOVER;
+            this.txtBuscarFactura.Name = "txtBuscarFactura";
+            this.txtBuscarFactura.PasswordChar = '\0';
+            this.txtBuscarFactura.SelectedText = "";
+            this.txtBuscarFactura.SelectionLength = 0;
+            this.txtBuscarFactura.SelectionStart = 0;
+            this.txtBuscarFactura.Size = new System.Drawing.Size(321, 23);
+            this.txtBuscarFactura.TabIndex = 15;
+            this.txtBuscarFactura.TabStop = false;
+            this.txtBuscarFactura.UseSystemPasswordChar = false;
+            // 
+            // lblAdminProductos
+            // 
+            this.lblAdminProductos.AutoSize = true;
+            this.lblAdminProductos.Depth = 0;
+            this.lblAdminProductos.Font = new System.Drawing.Font("Roboto", 11F);
+            this.lblAdminProductos.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.lblAdminProductos.Location = new System.Drawing.Point(349, 78);
+            this.lblAdminProductos.MouseState = MaterialSkin.MouseState.HOVER;
+            this.lblAdminProductos.Name = "lblAdminProductos";
+            this.lblAdminProductos.Size = new System.Drawing.Size(212, 19);
+            this.lblAdminProductos.TabIndex = 20;
+            this.lblAdminProductos.Text = "ADMINISTRACION FACTURAS";
+            // 
+            // MensajeError
+            // 
+            this.MensajeError.ContainerControl = this;
             // 
             // frmListaFacturas
             // 

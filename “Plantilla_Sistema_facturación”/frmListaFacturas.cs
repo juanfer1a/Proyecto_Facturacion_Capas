@@ -48,11 +48,13 @@ namespace _Plantilla_Sistema_facturación_
         }
 
 
-        private void btnBuscarProducto_Click(object sender, EventArgs e)
+      
+        private void btnBuscarFactura_Click(object sender, EventArgs e)
         {
             validar();        
-
         }
+
+        
         private void dgvFacturas_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             if (dgvFacturas.Columns[e.ColumnIndex].Name == "btnBorrar")//Obtenemos el nombre de la columna para comparar
