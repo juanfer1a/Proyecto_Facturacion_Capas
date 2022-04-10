@@ -56,6 +56,7 @@ namespace _Plantilla_Sistema_facturación_
                 int posActual = dgvFacturas.CurrentRow.Index;//Obtenemos el numero de la fila
                 if (MessageBox.Show("Esta seguro de borrar", "CONFIRMACION", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                     MessageBox.Show($"BORRANDO indice{e.RowIndex} ID{dgvFacturas[0, posActual].Value.ToString()}");//Mostramos mensaje
+                
                 factura.C_IdFactura = Convert.ToInt32(dgvFacturas[0, posActual].Value.ToString());
                 string mensaje = factura.Eliminar_Factura();
                 MessageBox.Show(mensaje);

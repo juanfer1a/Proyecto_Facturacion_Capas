@@ -13,13 +13,51 @@ namespace _Plantilla_Sistema_facturación_
             InitializeComponent();
         }
 
+        DataTable dt = new DataTable();
         ClsFactura factura = new ClsFactura();
 
         private void frmFacturas_Load(object sender, EventArgs e)
         {
-            llenar_combo_clientes();
-            llenar_combo_empleado();
-            llenar_combo_estadoFactura();            
+            Llenar_Factura();
+        }
+
+        public void Llenar_Factura()
+        {
+            if (NroFactura == 0)
+            {//Registro nuevo
+                lblEditarFactura.Text = "INGRESO NUEVA FACTURA";
+                llenar_combo_clientes();
+                llenar_combo_empleado();
+                llenar_combo_estadoFactura();
+                label1.Text = cboClienteFactura.DisplayMember;
+            }
+            else
+            {
+                llenar_combo_clientes();
+                llenar_combo_empleado();
+                llenar_combo_estadoFactura();
+
+                dt = factura.Consulta_Factura(NroFactura);
+
+
+                //dt = Acceso.EjecutarComandoDatos(sentencia);
+                foreach (DataRow row in dt.Rows)
+                {
+
+                    label1.Text = cboClienteFactura.DisplayMember;
+                    txbNroFactura.Text = row[0].ToString();
+                    txtDescuento.Text = row[4].ToString();
+                    txtDetalleFactura.Text = "Ninguna";
+                    txtTotalFactura.Text = row[6].ToString();
+                    txtTotalIva.Text = row[5].ToString();
+                    label1.Text = cboClienteFactura.SelectedText;
+                    cboClienteFactura.Text = consultar_clientes(int.Parse(row[2].ToString()));
+                    cboEmpleadoFactura.Text = consultar_empleado(int.Parse(row[3].ToString()));
+                    cboEstadoFactura.Text = consultar_estadoFact(int.Parse(row[7].ToString()));
+                    dtpFechaFactura.Text = row[1].ToString();
+
+                }
+            }
         }
 
 
@@ -28,9 +66,9 @@ namespace _Plantilla_Sistema_facturación_
             Guardar();
         }
 
-        public bool Guardar()
+        public void Guardar()
         {
-            Boolean actualizado = false;
+            string mensaje = string.Empty;
             if (validar())
             {
                 try
@@ -39,38 +77,34 @@ namespace _Plantilla_Sistema_facturación_
                     {
                         txbNroFactura.Text = "0";
                     }
-                    
-                    //Acceso_datos Acceso = new Acceso_datos();
-                    string sentencia = $"Exec actualizar_Factura {txbNroFactura.Text},'{dtpFechaFactura.Text}','{cboClienteFactura.SelectedValue}','{cboEmpleadoFactura.SelectedValue}'," +
-                        $"{txtDescuento.Text},{txtTotalIva.Text},'{txtTotalFactura.Text}','{cboEstadoFactura.SelectedValue}','{DateTime.Now.ToShortDateString()}'," +
-                        $"'Juan'";
-                    factura.C_IdFactura
-                    factura.C_DtmFecha
-                    factura.C_IdCliente
-                    factura.C_IdEmpleado
-                    factura.C_NumDescuento
-                    factura.C_NumImpuesto
-                    factura.C_NumValorTotal
-                    factura.C_IdEstado
-                    factura.C_DtmFechaModifica
-                    factura.C_StrUsuarioModifica
 
-                    //MessageBox.Show(Acceso.EjecutarComando(sentencia));
-                    actualizado = true;
+                    factura.C_IdFactura = int.Parse(txbNroFactura.Text);
+                    factura.C_DtmFecha = dtpFechaFactura.Text;
+                    factura.C_IdCliente = int.Parse(cboClienteFactura.SelectedValue.ToString());
+                    factura.C_IdEmpleado = int.Parse(cboEmpleadoFactura.SelectedValue.ToString());
+                    factura.C_NumDescuento = int.Parse(txtDescuento.Text);
+                    factura.C_NumImpuesto = int.Parse(txtTotalIva.Text);
+                    factura.C_NumValorTotal = int.Parse(txtTotalFactura.Text);
+                    factura.C_IdEstado = int.Parse(cboEstadoFactura.SelectedValue.ToString());
+                    factura.C_DtmFechaModifica = DateTime.Now.ToShortDateString();
+                    factura.C_StrUsuarioModifica = "Juan";
+
+                    mensaje = factura.Actulizar_Factura();
+                    MessageBox.Show(mensaje);
+
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show("falló inserción: " + ex);
-                    actualizado = false;
+
                 }
             }
-            return actualizado;
+
         }
         private void llenar_combo_empleado()
         {
-            DataTable dt = new DataTable();
-            //Acceso_datos Acceso = new Acceso_datos(); // creamos un objeto con la clase Acceso_datos
-            //dt = Acceso.cargartabla("TBLEMPLEADO", "");
+            Cls_Empleados empleados = new Cls_Empleados();
+            dt = empleados.Consulta_Empleado();
             cboEmpleadoFactura.DataSource = dt;
             cboEmpleadoFactura.DisplayMember = "strNombre";
             cboEmpleadoFactura.ValueMember = "IdEmpleado";
@@ -78,11 +112,36 @@ namespace _Plantilla_Sistema_facturación_
             //Acceso.CerrarBd();
         }
 
+        private string consultar_empleado(int Id)
+        {
+            string empleado = string.Empty;
+            Cls_Empleados empleados = new Cls_Empleados();
+            dt = empleados.Consulta_Empleado(Id);
+            foreach (DataRow row in dt.Rows)
+            {
+                empleado = row[1].ToString();
+            }
+            return empleado;
+
+            //Acceso.CerrarBd();
+        }
+        private string consultar_clientes(int Id)
+        {
+            string cliente = string.Empty;
+            Cls_Clientes clientes = new Cls_Clientes();
+            dt = clientes.Consulta_Clientes(Id);
+            foreach (DataRow row in dt.Rows)
+            {
+                cliente = row[1].ToString();
+            }
+            return cliente;
+
+        }
+
         private void llenar_combo_clientes()
         {
-            DataTable dt = new DataTable();
-            //Acceso_datos Acceso = new Acceso_datos(); // creamos un objeto con la clase Acceso_datos
-            //dt = Acceso.cargartabla("TBLCLIENTES", "");
+            Cls_Clientes clientes = new Cls_Clientes();
+            dt = clientes.Consulta_Clientes();
             cboClienteFactura.DataSource = dt;
             cboClienteFactura.DisplayMember = "StrNombre";
             cboClienteFactura.ValueMember = "IdCliente";
@@ -90,16 +149,26 @@ namespace _Plantilla_Sistema_facturación_
             //Acceso.CerrarBd();
         }
 
+        private string consultar_estadoFact(int Id)
+        {
+            string estado = string.Empty;
+            dt = factura.Consulta_EstadoFactura(Id);
+            foreach (DataRow row in dt.Rows)
+            {
+                estado = row[1].ToString();
+            }
+            return estado;
+
+        }
+
         private void llenar_combo_estadoFactura()
         {
-            DataTable dt = new DataTable();
-            //Acceso_datos Acceso = new Acceso_datos(); // creamos un objeto con la clase Acceso_datos
-            //dt = Acceso.cargartabla("TBLESTADO_FACTURA", "");
+
+            dt = factura.Consulta_EstadoFactura();
             cboEstadoFactura.DataSource = dt;
             cboEstadoFactura.DisplayMember = "StrDescripcion";
             cboEstadoFactura.ValueMember = "IdEstadoFactura";
 
-            //Acceso.CerrarBd();
         }
         //FUNCIÓN QE PERMITE VALIDAR LOS CAMPOS DEL FORMULARIO
         private Boolean validar()
@@ -129,7 +198,7 @@ namespace _Plantilla_Sistema_facturación_
             }
             else { MensajeError.SetError(txtTotalFactura, string.Empty); }
 
-            
+
             return errorCampos;
         }
 

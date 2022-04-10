@@ -50,6 +50,7 @@ namespace _Plantilla_Sistema_facturación_
             this.lblSalirFactura = new MaterialSkin.Controls.MaterialRaisedButton();
             this.btnActualizarFactura = new MaterialSkin.Controls.MaterialRaisedButton();
             this.MensajeError = new System.Windows.Forms.ErrorProvider(this.components);
+            this.label1 = new System.Windows.Forms.Label();
             this.grbAdminClientes.SuspendLayout();
             this.grbDetalleFactura.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.MensajeError)).BeginInit();
@@ -300,11 +301,21 @@ namespace _Plantilla_Sistema_facturación_
             // 
             this.MensajeError.ContainerControl = this;
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(156, 32);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(41, 13);
+            this.label1.TabIndex = 13;
+            this.label1.Text = "Prueba";
+            // 
             // frmFacturas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(920, 607);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.lblSalirFactura);
             this.Controls.Add(this.btnActualizarFactura);
             this.Controls.Add(this.grbDetalleFactura);
@@ -346,5 +357,6 @@ namespace _Plantilla_Sistema_facturación_
         private MaterialSkin.Controls.MaterialRaisedButton lblSalirFactura;
         private MaterialSkin.Controls.MaterialRaisedButton btnActualizarFactura;
         private System.Windows.Forms.ErrorProvider MensajeError;
+        private System.Windows.Forms.Label label1;
     }
 }

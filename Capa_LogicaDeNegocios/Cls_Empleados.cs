@@ -38,7 +38,7 @@ namespace Capa_LogicaDeNegocios
             }
         }
 
-        public DataTable Consulta_Empleado(string IdEmpleado)
+        public DataTable Consulta_Empleado(int IdEmpleado)
         {
             string Sentencia;
             try

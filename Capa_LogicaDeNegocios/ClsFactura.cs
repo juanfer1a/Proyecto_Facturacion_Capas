@@ -8,15 +8,15 @@ namespace Capa_LogicaDeNegocios
     public class ClsFactura
     {
         public int C_IdFactura { get; set; }
-        public int C_DtmFecha { get; set; }
+        public string C_DtmFecha { get; set; }
         public int C_IdCliente { get; set; }
         public int C_IdEmpleado { get; set; }
         public int C_NumDescuento { get; set; }
         public int C_NumImpuesto { get; set; }
         public int C_NumValorTotal { get; set; }
         public int C_IdEstado { get; set; }
-        public int C_DtmFechaModifica { get; set; }
-        public int C_StrUsuarioModifica { get; set; }
+        public string C_DtmFechaModifica { get; set; }
+        public string C_StrUsuarioModifica { get; set; }
 
         Cls_Acceso_Datos acceso = new Cls_Acceso_Datos();
 
@@ -36,6 +36,38 @@ namespace Capa_LogicaDeNegocios
             }
         }
 
+        public DataTable Consulta_EstadoFactura()
+        {
+            string Sentencia;
+            try
+            {
+                Sentencia = "SELECT * FROM TBLESTADO_FACTURA ";
+                DataTable dt = new DataTable();
+                dt = acceso.EjecutarConsulta(Sentencia);
+                return dt;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
+        public DataTable Consulta_EstadoFactura(int IdFactura)
+        {
+            string Sentencia;
+            try
+            {
+                Sentencia = $"SELECT * FROM TBLESTADO_FACTURA WHERE IdEstadoFactura = {IdFactura}";
+                DataTable dt = new DataTable();
+                dt = acceso.EjecutarConsulta(Sentencia);
+                return dt;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
         public DataTable Consulta_Factura(int IdFactura)
         {
             string Sentencia;
@@ -44,6 +76,7 @@ namespace Capa_LogicaDeNegocios
                 Sentencia = $"SELECT * FROM TBLFACTURA WHERE IdFactura = '{IdFactura}'";
                 DataTable dt = new DataTable();
                 dt = acceso.EjecutarConsulta(Sentencia);
+
                 return dt;
             }
             catch (Exception ex)
@@ -79,7 +112,7 @@ namespace Capa_LogicaDeNegocios
                 
                 lst.Add(new Cls_parametros("@IdFactura", C_IdFactura));
 
-                mensaje = acceso.EjecutarProcedimiento("Eliminar_Producto", lst);
+                mensaje = acceso.EjecutarProcedimiento("Eliminar_Factura", lst);
 
             }
             catch (Exception ex)
@@ -100,7 +133,7 @@ namespace Capa_LogicaDeNegocios
                 lst.Add(new Cls_parametros("@IdFactura", C_IdFactura));
                 lst.Add(new Cls_parametros("@DtmFecha", C_DtmFecha));
                 lst.Add(new Cls_parametros("@IdCliente ", C_IdCliente));
-                lst.Add(new Cls_parametros("@dEmpleado ", C_IdEmpleado));
+                lst.Add(new Cls_parametros("@IdEmpleado ", C_IdEmpleado));
                 lst.Add(new Cls_parametros("@NumDescuento", C_NumDescuento));
                 lst.Add(new Cls_parametros("@NumImpuesto", C_NumImpuesto));
                 lst.Add(new Cls_parametros("@NumValorTotal", C_NumValorTotal));

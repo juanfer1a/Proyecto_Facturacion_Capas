@@ -23,13 +23,8 @@ namespace _Plantilla_Sistema_facturación_
 
         public void Llenar_grid()
         {
-            //ACTUALIZAR EL REGISTRO CON EL ID PASADO
-            //string sentencia = $"select IdProducto,strNombre,Strcodigo,NumPrecioCompra,NumPrecioVenta,NumStock " +
-            //    $"from TBLPRODUCTO"; // CONSULTO REGISTRO DEL iDcLIENTE
-
             dt = Productos.Consulta_Producto();
-
-            //dt = Acceso.EjecutarComandoDatos(sentencia);
+            
             foreach (DataRow row in dt.Rows)
             {
                 // LLENAMOS LOS CAMPOS CON EL REGISTRO CONSULTADO
